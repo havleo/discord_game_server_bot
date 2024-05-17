@@ -8,7 +8,7 @@ intents.members = True
 discord_client = discord.Client(intents=intents)
 
 # Valheim config
-valheim_server_path = '/home/leo/lloesche/valheim-server'
+valheim_server_path = '/home/leo/valheim'
 valheim_members = {
     'Mbutu': 'Rac',
     'Mutimir': 'mutimir',
@@ -21,7 +21,7 @@ valheim_members = {
 
 # VRising config
 launch_code_timeout = 20
-vrising_server_path = '/home/leo/docker-vrising'
+vrising_server_path = '/home/leo/vrising'
 
 
 # Recognition
