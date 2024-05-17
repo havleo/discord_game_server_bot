@@ -19,6 +19,12 @@ valheim_members = {
     'Yeo': 'yeo3130'
 }
 
+# VRising config
+launch_code_timeout = 20
+vrising_server_path = '/home/leo/docker-vrising'
+
+
+# Recognition
 async def recogniseRole(message, targetRole, recognition):
     name = valheim_members[message.content.split()[0]]
     member = message.guild.get_member_named(name)
@@ -42,6 +48,17 @@ async def on_message(message):
         elif '$valheim_stop' in message.content:
             await message.channel.send("Stopping Valheim server...")
             os.chdir(valheim_server_path)
+            os.system('docker compose down')
+
+        elif '$vrising_start' in message.content:
+            await message.channel.send("Starting VRising server...")
+            os.chdir(vrising_server_path)
+            os.system('docker compose up -d')
+            await message.channel.send("Pokrenuo se, traje oko minutu da proradi...")
+
+        elif '$vrising_stop' in message.content:
+            await message.channel.send("Stopping VRising server...")
+            os.chdir(vrising_server_path)
             os.system('docker compose down')
 
         elif 'has joined.' in message.content:
