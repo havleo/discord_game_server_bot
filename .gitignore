@@ -2,3 +2,4 @@
 .venv
 token
 nohup.out
+*.out

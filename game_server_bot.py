@@ -1,5 +1,6 @@
 import discord
 import os
+import sys
 
 # Discord
 intents = discord.Intents.default()
