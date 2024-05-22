@@ -22,7 +22,7 @@ valheim_members = {
 
 # VRising config
 launch_code_timeout = 20
-vrising_server_path = '/home/leo/vrising'
+vrising_server_path = '/home/leo/docker-vrising'
 
 
 # Recognition
