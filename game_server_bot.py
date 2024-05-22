@@ -2,6 +2,7 @@ import discord
 import os
 import sys
 
+
 # Discord
 intents = discord.Intents.default()
 intents.message_content = True
@@ -23,7 +24,13 @@ valheim_members = {
 # VRising config
 launch_code_timeout = 20
 vrising_server_path = '/home/leo/docker-vrising'
-
+vrising_start_dict = {
+    'Rac': 'krajina',
+    'mutimir': 'turopolje',
+    'ditecacino': 'dalmacija',
+    'lecika': 'moslavina'
+}
+vrising_dict = vrising_start_dict.copy()
 
 # Recognition
 async def recogniseRole(message, targetRole, recognition):
@@ -51,12 +58,6 @@ async def on_message(message):
             os.chdir(valheim_server_path)
             os.system('docker compose down')
 
-        elif '$vrising_start' in message.content:
-            await message.channel.send("Starting VRising server...")
-            os.chdir(vrising_server_path)
-            os.system('docker compose up -d')
-            await message.channel.send("Pokrenuo se, traje oko minutu da proradi...")
-
         elif '$vrising_stop' in message.content:
             await message.channel.send("Stopping VRising server...")
             os.chdir(vrising_server_path)
@@ -71,6 +72,17 @@ async def on_message(message):
             await recogniseRole(message, 'SailingMaster', 'Kapetan tone s brodom')
             await recogniseRole(message, 'FishingMaster', 'Tolika je bila riba, al je utekla')
             await recogniseRole(message, 'Arhitekta', 'Sad je još manje kamenja')
+
+        elif (message.author.name in vrising_dict.keys() and
+              message.content in vrising_dict.values()):
+            if len(vrising_dict) != 1:
+                del vrising_dict[message.author.name]
+                await message.channel.send("Fale: {}".format(" ".join(vrising_dict)))
+            else:
+                os.chdir(vrising_server_path)
+                os.system('docker compose up -d')
+                await message.channel.send("Pokrenuo se, traje oko minutu da proradi...")
+                vrising_dict=vrising_start_dict.copy()
 
         else:
             return
